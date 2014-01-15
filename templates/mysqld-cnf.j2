@@ -1,0 +1,402 @@
+# {{ ansible_managed }}
+
+[mysqld]
+#################
+#
+# Server Options
+#
+#################
+
+{% if mysql_skip_networking is defined and mysql_skip_networking == true %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-options.html#option_mysqld_skip-networking
+skip-networking
+
+{% endif %}
+
+{% if mysql_bind_address is defined and mysql_bind_address is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-options.html#option_mysqld_bind-address
+# Scope   => Global
+# Dynamic => No
+bind-address = {{ mysql_bind_address }}
+
+{% endif %}
+{% if mysql_default_storage_engine is defined and mysql_default_storage_engine is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-options.html#option_mysqld_default-storage-engine
+# Scope   => Global, Session
+# Dynamic => Yes
+default_storage_engine = {{ mysql_default_storage_engine }}
+
+{% endif %}
+{% if mysql_myisam_recover_options is defined and mysql_myisam_recover_options is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-options.html#option_mysqld_myisam-recover-options
+myisam-recover-options = {{ mysql_myisam_recover_options }}
+
+{% endif %}
+###################
+#
+# System Variables
+#
+###################
+
+{% if mysql_bulk_insert_buffer_size is defined and mysql_bulk_insert_buffer_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_bulk_insert_buffer_size
+# Scope   => Global, Session
+# Dynamic => Yes
+# MyISAM  => Yes
+bulk_insert_buffer_size = {{ mysql_bulk_insert_buffer_size }}
+
+{% endif %}
+{% if mysql_utf8 %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_character_set_server
+# Scope   => Global, Session
+# Dynamic => Yes
+character_set_server = utf8
+
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_collation_server
+# Scope   => Global, Session
+# Dynamic => Yes
+collation_server = utf8_general_ci
+
+{% endif %}
+{% if mysql_back_log is defined and mysql_back_log is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_back_log
+# Scope   => Global
+# Dynamic => Yes
+back_log = {{ mysql_back_log }}
+
+{% endif %}
+{% if mysql_connect_timeout is defined and mysql_connect_timeout is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_connect_timeout
+# Scope   => Global
+# Dynamic => Yes
+connect_timeout = {{ mysql_connect_timeout }}
+
+{% endif %}
+{% if mysql_join_buffer_size is defined and mysql_join_buffer_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_join_buffer_size
+# Scope   => Global, Session
+# Dynamic => Yes
+join_buffer_size = {{ mysql_join_buffer_size }}
+
+{% endif %}
+{% if mysql_key_buffer_size is defined and mysql_key_buffer_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_key_buffer_size
+# Scope   => Global
+# Dynamic => Yes
+# MyISAM  => Yes
+key_buffer_size = {{ mysql_key_buffer_size }}
+
+{% endif %}
+{% if mysql_max_allowed_packet is defined and mysql_max_allowed_packet is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_max_allowed_packet
+# Scope   => Global
+# Dynamic => Yes
+max_allowed_packet = {{ mysql_max_allowed_packet }}
+
+{% endif %}
+{% if mysql_max_connections is defined and mysql_max_connections is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_max_connections
+# Scope   => Global
+# Dynamic => Yes
+max_connections = {{ mysql_max_connections }}
+
+{% endif %}
+{% if mysql_max_heap_table_size is defined and mysql_max_heap_table_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_max_heap_table_size
+# Scope   => Global, Session
+# Dynamic => Yes
+max_heap_table_size = {{ mysql_max_heap_table_size }}
+
+{% endif %}
+{% if mysql_myisam_max_sort_file_size is defined and mysql_myisam_max_sort_file_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_myisam_max_sort_file_size
+# Scope   => Global
+# Dynamic => Yes
+# MyISAM  => Yes
+myisam_max_sort_file_size = {{ mysql_myisam_max_sort_file_size }}
+
+{% endif %}
+{% if mysql_myisam_sort_buffer_size is defined and mysql_myisam_sort_buffer_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_myisam_sort_buffer_size
+# Scope   => Global, Session
+# Dynamic => Yes
+# MyISAM  => Yes
+myisam_sort_buffer_size = {{ mysql_myisam_sort_buffer_size }}
+
+{% endif %}
+{% if mysql_open_files_limit is defined and mysql_open_files_limit is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_open_files_limit
+# Scope   => Global
+# Dynamic => No
+open_files_limit = {{ mysql_open_files_limit }}
+
+{% endif %}
+{% if mysql_query_cache_limit is defined and mysql_query_cache_limit is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_query_cache_limit
+# Scope   => Global
+# Dynamic => Yes
+query_cache_limit = {{ mysql_query_cache_limit }}
+
+{% endif %}
+{% if mysql_query_cache_min_res_unit is defined and mysql_query_cache_min_res_unit is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_query_cache_min_res_unit
+# Scope   => Global
+# Dynamic => Yes
+query_cache_min_res_unit = {{ mysql_query_cache_min_res_unit }}
+
+{% endif %}
+{% if mysql_query_cache_size is defined and mysql_query_cache_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_query_cache_size
+# Scope   => Global
+# Dynamic => Yes
+query_cache_size = {{ mysql_query_cache_size }}
+
+{% endif %}
+{% if mysql_query_cache_type is defined and mysql_query_cache_type is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_query_cache_type
+# Scope   => Global, Session
+# Dynamic => Yes
+query_cache_type = {{ mysql_query_cache_type }}
+
+{% endif %}
+{% if mysql_read_buffer_size is defined and mysql_read_buffer_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_read_buffer_size
+# Scope   => Global, Session
+# Dynamic => Yes
+# MyISAM  => Yes
+read_buffer_size = {{ mysql_read_buffer_size }}
+
+{% endif %}
+{% if mysql_read_rnd_buffer_size is defined and mysql_read_rnd_buffer_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_read_rnd_buffer_size
+# Scope   => Global, Session
+# Dynamic => Yes
+# MyISAM  => Yes
+read_rnd_buffer_size = {{ mysql_read_rnd_buffer_size }}
+
+{% endif %}
+{% if mysql_sort_buffer_size is defined and mysql_sort_buffer_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_sort_buffer_size
+# Scope   => Global, Session
+# Dynamic => Yes
+sort_buffer_size = {{ mysql_sort_buffer_size }}
+
+{% endif %}
+{% if mysql_table_definition_cache is defined and mysql_table_definition_cache is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_table_definition_cache
+# Scope   => Global
+# Dynamic => Yes
+table_definition_cache = {{ mysql_table_definition_cache }}
+
+{% endif %}
+{% if mysql_table_open_cache is defined and mysql_table_open_cache is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_table_open_cache
+# Scope   => Global
+# Dynamic => Yes
+table_open_cache = {{ mysql_table_open_cache }}
+
+{% endif %}
+{% if mysql_thread_cache_size is defined and mysql_thread_cache_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_thread_cache_size
+# Scope   => Global
+# Dynamic => Yes
+thread_cache_size = {{ mysql_thread_cache_size }}
+
+{% endif %}
+{% if mysql_thread_stack is defined and mysql_thread_stack is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_thread_stack
+# Scope   => Global
+# Dynamic => No
+thread_stack = {{ mysql_thread_stack }}
+
+{% endif %}
+{% if mysql_tmp_table_size is defined and mysql_tmp_table_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_tmp_table_size
+# Scope   => Global, Session
+# Dynamic => Yes
+tmp_table_size = {{ mysql_tmp_table_size }}
+
+{% endif %}
+{% if mysql_wait_timeout is defined and mysql_wait_timeout is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_wait_timeout
+# Scope   => Global, Session
+# Dynamic => Yes
+wait_timeout = {{ mysql_wait_timeout }}
+
+{% endif %}
+##############################
+#
+# System Variables -- Logging
+#
+##############################
+
+{% if mysql_general_log is defined and mysql_general_log is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_general_log
+# Scope   => Global
+# Dynamic => Yes
+general_log = {{ mysql_general_log }}
+
+{% endif %}
+{% if mysql_general_log_file is defined and mysql_general_log_file is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_general_log_file
+# Scope   => Global
+# Dynamic => Yes
+general_log_file = {{ mysql_general_log_file }}
+
+{% endif %}
+{% if mysql_log_error is defined and mysql_log_error is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_log_error
+# Scope   => Global
+# Dynamic => No
+log_error = {{ mysql_log_error }}
+
+{% endif %}
+{% if mysql_log_queries_not_using_indexes is defined and mysql_log_queries_not_using_indexes is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_log_queries_not_using_indexes
+# Scope   => Global
+# Dynamic => Yes
+log_queries_not_using_indexes = {{ mysql_log_queries_not_using_indexes }}
+
+{% endif %}
+{% if mysql_long_query_time is defined and mysql_long_query_time is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_long_query_time
+# Scope   => Global, Session
+# Dynamic => Yes
+long_query_time = {{ mysql_long_query_time }}
+
+{% endif %}
+{% if mysql_slow_query_log is defined and mysql_slow_query_log is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_slow_query_log
+# Scope   => Global
+# Dynamic => Yes
+slow_query_log = {{ mysql_slow_query_log }}
+
+{% endif %}
+{% if mysql_slow_query_log_file is defined and mysql_slow_query_log_file is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_slow_query_log_file
+# Scope   => Global
+# Dynamic => Yes
+slow_query_log_file = {{ mysql_slow_query_log_file }}
+
+{% endif %}
+##################################
+#
+# System Variables -- Replication
+#
+##################################
+
+{% if mysql_binlog_format is defined and mysql_binlog_format is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/replication-options-binary-log.html#sysvar_binlog_format
+# Scope   => Global, Session
+# Dynamic => Yes
+binlog_format = {{ mysql_binlog_format }}
+
+{% endif %}
+{% if mysql_expire_logs_days is defined and mysql_expire_logs_days is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/server-system-variables.html#sysvar_expire_logs_days
+# Scope   => Global
+# Dynamic => Yes
+expire_logs_days = {{ mysql_expire_logs_days }}
+
+{% endif %}
+{% if mysql_log_bin is defined and mysql_log_bin is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/replication-options-binary-log.html#sysvar_log_bin
+# Scope   => Global
+# Dynamic => No
+log_bin = {{ mysql_log_bin }}
+
+{% endif %}
+{% if mysql_max_binlog_size is defined and mysql_max_binlog_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/replication-options-binary-log.html#sysvar_max_binlog_size
+# Scope   => Global
+# Dynamic => Yes
+max_binlog_size = {{ mysql_max_binlog_size }}
+
+{% endif %}
+#############################
+#
+# System Variables -- InnoDB
+#
+#############################
+
+{% if mysql_innodb_additional_mem_pool_size is defined and mysql_innodb_additional_mem_pool_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_additional_mem_pool_size
+# Scope   => Global
+# Dynamic => No
+innodb_additional_mem_pool_size = {{ mysql_innodb_additional_mem_pool_size }}
+
+{% endif %}
+{% if mysql_innodb_buffer_pool_instances is defined and mysql_innodb_buffer_pool_instances is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_buffer_pool_instances
+# Scope   => Global
+# Dynamic => No
+innodb_buffer_pool_instances = {{ mysql_innodb_buffer_pool_instances }}
+
+{% endif %}
+{% if mysql_innodb_buffer_pool_size is defined and mysql_innodb_buffer_pool_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_buffer_pool_size
+# Scope   => Global
+# Dynamic => No
+innodb_buffer_pool_size = {{ mysql_innodb_buffer_pool_size }}
+
+{% endif %}
+{% if mysql_innodb_data_file_path is defined and mysql_innodb_data_file_path is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_data_file_path
+# Scope   => Global
+# Dynamic => No
+innodb_data_file_path = {{ mysql_innodb_data_file_path }}
+
+{% endif %}
+{% if mysql_innodb_file_per_table is defined and mysql_innodb_file_per_table is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_file_per_table
+# Scope   => Global
+# Dynamic => Yes
+innodb_file_per_table = {{ mysql_innodb_file_per_table }}
+
+{% endif %}
+{% if mysql_innodb_flush_log_at_trx_commit is defined and mysql_innodb_flush_log_at_trx_commit is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_flush_log_at_trx_commit
+# Scope   => Global
+# Dynamic => Yes
+innodb_flush_log_at_trx_commit = {{ mysql_innodb_flush_log_at_trx_commit }}
+
+{% endif %}
+{% if mysql_innodb_flush_method is defined and mysql_innodb_flush_method is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_flush_method
+# Scope   => Global
+# Dynamic => No
+innodb_flush_method = {{ mysql_innodb_flush_method }}
+
+{% endif %}
+{% if mysql_innodb_lock_wait_timeout is defined and mysql_innodb_lock_wait_timeout is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_lock_wait_timeout
+# Scope   => Global, Session
+# Dynamic => Yes
+innodb_lock_wait_timeout = {{ mysql_innodb_lock_wait_timeout }}
+
+{% endif %}
+{% if mysql_innodb_log_buffer_size is defined and mysql_innodb_log_buffer_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_log_buffer_size
+# Scope   => Global
+# Dynamic => No
+innodb_log_buffer_size = {{ mysql_innodb_log_buffer_size }}
+
+{% endif %}
+{% if mysql_innodb_log_file_size is defined and mysql_innodb_log_file_size is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_log_file_size
+# Scope   => Global
+# Dynamic => No
+innodb_log_file_size = {{ mysql_innodb_log_file_size }}
+
+{% endif %}
+{% if mysql_innodb_log_files_in_group is defined and mysql_innodb_log_files_in_group is not none %}
+# http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_log_files_in_group
+# Scope   => Global
+# Dynamic => No
+innodb_log_files_in_group = {{ mysql_innodb_log_files_in_group }}
+
+{% endif %}
+# http://dev.mysql.com/doc/refman/5.5/en/innodb-parameters.html#sysvar_innodb_thread_concurrency
+# Scope   => Global
+# Dynamic => Yes
+innodb_thread_concurrency = {{ ansible_processor_cores|int * 2 }}

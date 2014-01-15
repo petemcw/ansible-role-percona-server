@@ -1,0 +1,10 @@
+---
+# Defines variables for Debian/Ubuntu
+
+mysql_service: 'mysql'
+mysql_config_dir: '/etc/mysql'
+mysql_server_packages:
+  - 'percona-server-server-5.5'
+  - 'percona-xtrabackup'
+  - 'python-mysqldb'
+  - 'mysqltuner'

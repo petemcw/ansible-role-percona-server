@@ -1,0 +1,19 @@
+---
+# Handlers for MySQL notifications.
+
+- name: stop mysql
+  service: >
+    name={{ mysql_service }}
+    state=stopped
+
+- name: start mysql
+  service: >
+    name={{ mysql_service }}
+    state=started
+    enabled=yes
+
+- name: restart mysql
+  service: >
+    name={{ mysql_service }}
+    state=restarted
+    enabled=yes

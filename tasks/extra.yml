@@ -1,0 +1,25 @@
+---
+# Defines tasks to install server-specific databases and users
+
+- name: Create MySQL databases
+  mysql_db: >
+    name={{ item.name }}
+    state=present
+  with_items: mysql_databases
+  when: mysql_databases|lower() != 'none'
+  tags:
+    - mysql
+    - percona
+
+- name: Create MySQL users
+  mysql_user: >
+    name={{ item.name }}
+    password={{ item.pass|default('Password!') }}
+    priv={{ item.priv|default('*.*:SELECT') }}
+    host={{ item.host | default('localhost') }}
+    state=present
+  with_items: mysql_users
+  when: mysql_users|lower() != 'none'
+  tags:
+    - mysql
+    - percona
