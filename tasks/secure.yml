@@ -18,11 +18,13 @@
     - mysql
     - percona
 
-- name: Notify HipChat of new MySQL root password
-  hipchat: >
-    token={{ mysql_hipchat_token }}
-    room={{ mysql_hipchat_room }}
-    msg="MySQL root password for {{ inventory_hostname }} is {{ root_db_password.stdout }}"
+- name: Notify Slack of new MySQL root password
+  slack: >
+    token="{{ mysql_slack_token }}"
+    domain="{{ mysql_slack_domain }}"
+    channel="#notify"
+    username="Ansible on {{ inventory_hostname }}"
+    msg="MySQL root password is `{{ root_db_password.stdout }}`"
   when: root_db_password is defined and root_db_password.stdout != ''
   tags:
     - mysql
