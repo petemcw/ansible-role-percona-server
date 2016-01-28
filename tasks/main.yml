@@ -68,6 +68,16 @@
     - mysql
     - percona
 
+- name: Write log rotation template
+  template: >
+    src=logrotate-d-percona.j2
+    dest=/etc/logrotate.d/percona-server
+    mode=0644 owner=root group=root
+    backup=yes
+  tags:
+    - mysql
+    - percona
+
 - name: Start server on server boot
   service: >
     name={{ mysql_service }}

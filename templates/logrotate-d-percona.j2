@@ -1,0 +1,30 @@
+# - I put everything in one block and added sharedscripts, so that mysql gets
+#   flush-logs'd only once.
+#   Else the binary logs would automatically increase by n times every day.
+{{mysql_general_log_file}}
+/var/log/mysql/*.log {
+    daily
+    rotate 7
+    missingok
+    create 640 mysql adm
+    compress
+    sharedscripts
+    postrotate
+        test -x /usr/bin/mysqladmin || exit 0
+
+        if [ -f /etc/mysql/debian.cnf ]; then
+            MYADMIN="/usr/bin/mysqladmin --defaults-file=/etc/mysql/debian.cnf"
+        else
+            MYADMIN="/usr/bin/mysqladmin"
+        fi
+
+        if [ -z "`$MYADMIN ping 2>/dev/null`" ]; then
+            # If this occurs and is not a error please report a bug.
+            if ps cax | grep -q mysqld; then
+                exit 1
+            fi
+        else
+            $MYADMIN flush-logs
+        fi
+    endscript
+}
