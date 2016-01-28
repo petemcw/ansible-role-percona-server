@@ -37,7 +37,7 @@
 
 - name: Find existing MySQL data files
   command: >
-    find /var/lib/mysql -type f -iname "ibdata*" -o -iname "ib_log*" -o -iname "*.log" -o -iname "*.index" -o -iname "*.err"
+    find {{ mysql_data_dir }} -type f -iname "ibdata*" -o -iname "ib_log*" -o -iname "*.log" -o -iname "*.index" -o -iname "*.err"
   when: mysql_data_path.stat.exists == false
   register: dumpfiles
   tags:
