@@ -11,7 +11,7 @@
 
 - name: Request new password for MySQL root user
   command: >
-    curl https://ashpass.herokuapp.com/14
+    curl -H "Content-Type:text/plain" https://ashpass.herokuapp.com/14
   register: root_db_password
   when: root_password_file.stat.exists == false
   tags:
